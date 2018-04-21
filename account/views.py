@@ -3,4 +3,5 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("CRYPTHON!")
+    """View function for home page of site."""
+    return render(request, 'account/index.html')
