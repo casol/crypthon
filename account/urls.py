@@ -13,5 +13,7 @@ urlpatterns = [
     url(r'^logout/$',
         auth_views.logout,
         name='logout'),
-
+    url(r'^market/$',
+        views.dashboard,
+        name='dashboard'),
 ]
