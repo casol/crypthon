@@ -115,4 +115,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Redirect to home URL after successful login
-LOGIN_REDIRECT_URL = '/market/'
+LOGIN_REDIRECT_URL = '/account/market/'
