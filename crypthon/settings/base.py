@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -114,5 +115,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Redirect to home URL after successful login
-LOGIN_REDIRECT_URL = '/account/market/'
+# Redirect to market URL after successful login
+LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
+# The URL where requests are redirected for login e.g. when using login_required() decorator
+LOGIN_URL =  reverse_lazy('login')
+# Is the URL to redirect the user to log out
+LOGOUT_URL = reverse_lazy('logout')

@@ -6,21 +6,55 @@
 <style>
     html {height: 100%;}
     body {background: linear-gradient(#6a008a, #fa0053);}
+    #header {background-color:white;}
+    .selected {color:red;}
+    #header ul.menu {
+    list-style:none;
+    float:left;
+    margin:0;
+    padding:0;
+    }
+    #header ul.menu li {
+        float:left;
+        padding:4px 10px;
+    }
+    #header ul.menu li.selected a, #header ul.menu li.selected a:hover {
+    color:#1b6d32;
+    font-weight:bold;
+    }
 </style>
 <body>
+    <div id="header">
+        <h1 class="logo">CRYPTHON</h1>
+        {% if request.user.is_authenticated %}
+            <ul class="menu">
+                <li {% if section == "dashboard" %}class="selected"{% endif %}>
+                <a href="{% url "dashboard" %}">My dashboard</a>
+                </li
 
-<h1 style="color:white;">Crypthon</h1>
-<p style="color:white;">Cryptocurrency Exchange.</p>
-<div>{% block content %}{% endblock %}</div>
+                <li {% if section == "something_1" %}class="selected"{% endif %}>
+                <a href="#">something_1</a>
+                </li>
 
-<ul class="sidebar-nav">
-    {% if user.is_authenticated %}
-        <li>User: {{ user.get_name }}</li>
-        <li><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
-    {% else %}
-        <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-    {% endif %}
-</ul>
+                <li {% if section == "something_2" %}class="selected"{% endif %}>
+                <a href="#">something_2</a>
+                </li>
+            </ul>
+        {% endif %}
+
+        <span class="users">
+            {% if request.user.is_authenticated %}
+            Hello {{ request.user.first_name }}
+            <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </span>
+    </div>
+    <div>
+        <p style="color:white;">Cryptocurrency Exchange.</p>
+        <div>{% block content %}{% endblock %}</div>
+    </div>
 
 </body>
 </html>
