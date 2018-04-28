@@ -121,3 +121,6 @@ LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
 LOGIN_URL =  reverse_lazy('login')
 # Is the URL to redirect the user to log out
 LOGOUT_URL = reverse_lazy('logout')
+
+# EMAIL BACKEND
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
