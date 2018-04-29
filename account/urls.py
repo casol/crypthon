@@ -10,4 +10,7 @@ urlpatterns = [
     url(r'^market/$',
         views.dashboard,
         name='dashboard'),
+    url(r'^register/$',
+        views.register,
+        name='register'),
 ]
