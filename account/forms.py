@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from .models import Profile
+
 
 class RegisterForm(UserCreationForm):
     """A form for creating new users. Includes all the required
@@ -13,3 +15,12 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ('username', 'first_name', 'email',
                   'password1', 'password2')
+
+
+class ProfileVerificationForm(forms.ModelForm):
+    """A form for updating the user Profile in order to verified account."""
+    class Meta:
+        model = Profile
+        fields = ('date_of_birth', 'document_country_of_issue',
+                  'document_series', 'id_document_expiration_date',
+                  'phone_number', 'document_scan')

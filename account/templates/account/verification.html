@@ -1,0 +1,15 @@
+{% extends 'account/index.html' %}
+
+{% block title %}Identity Verification{% endblock %}
+
+{% block content %}
+
+<h1>Identity Verification</h1>
+<p>Verify your profile.</p>
+<form action="." method="post">
+    {% csrf_token %}
+    {{ verification_form.as_p }}
+    <input type="submit" value="Send to verification">
+</form>
+
+{% endblock %}

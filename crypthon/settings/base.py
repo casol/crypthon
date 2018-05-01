@@ -115,6 +115,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
+
 # Redirect to market URL after successful login
 LOGIN_REDIRECT_URL = reverse_lazy('dashboard')
 # The URL where requests are redirected for login e.g. when using login_required() decorator
