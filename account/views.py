@@ -1,7 +1,5 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-#from .forms import UserCreationForm
-from django.contrib.auth.forms import UserCreationForm
 
 from .forms import RegisterForm
 
@@ -23,12 +21,17 @@ def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_passoword = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('home')
+            # Create a new user object but do not save it yet
+            new_user = form.save(commit=False)
+            # Set password
+            new_user.set_password(form.cleaned_data['password1'])
+            # Save the User object
+            new_user.save()
+            return render(request,
+                          'account/register_done.html',
+                          {'new_user': new_user})
     else:
         form = RegisterForm()
-    return render(request, 'account/register.html', {'form':form})
+    return render(request,
+                  'account/register.html',
+                  {'form':form})
