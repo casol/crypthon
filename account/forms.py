@@ -24,3 +24,10 @@ class ProfileVerificationForm(forms.ModelForm):
         fields = ('date_of_birth', 'document_country_of_issue',
                   'document_series', 'id_document_expiration_date',
                   'phone_number', 'document_scan')
+
+    def __int__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs):
+
+        verified = self.fields.get('verified')
+        if verified == True:
+            self.fields
