@@ -19,15 +19,16 @@ class RegisterForm(UserCreationForm):
 
 class ProfileVerificationForm(forms.ModelForm):
     """A form for updating the user Profile in order to verified account."""
+    disabled_fields = ('date_of_birth', 'document_country_of_issue',
+                  'document_series', 'id_document_expiration_date',
+                  'document_scan')
     class Meta:
         model = Profile
         fields = ('date_of_birth', 'document_country_of_issue',
                   'document_series', 'id_document_expiration_date',
                   'phone_number', 'document_scan')
 
-    def __int__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs):
-
-        verified = self.fields.get('verified')
-        if verified == True:
-            self.fields
+    def __init__(self, *args, **kwargs):
+        super(ProfileVerificationForm, self).__init__(*args, **kwargs)
+        for field in self.disabled_fields:
+            self.fields[field].disabled = True

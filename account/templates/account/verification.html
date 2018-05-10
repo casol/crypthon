@@ -5,11 +5,21 @@
 {% block content %}
 
 <h1>Identity Verification</h1>
+{% if profile_verified %}
+<p>Your account has been verified</p>
+{% else %}
 <p>Verify your profile.</p>
+{% endif %}
+
 <form action="." method="post">
     {% csrf_token %}
     {{ verification_form.as_p }}
+
+    {% if profile_verified %}
+    <input type="submit" value="Send to verification" disabled>
+    {% else %}
     <input type="submit" value="Send to verification">
+    {% endif %}
 </form>
 
 {% endblock %}

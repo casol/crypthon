@@ -44,6 +44,8 @@ def register(request):
 @login_required
 def verification(request):
     """User identity verification."""
+    # check if profile is verified 
+    profile_verified = request.user.profile.verified
     if request.method == 'POST':
         verification_form = ProfileVerificationForm(instance=request.user.profile,
                                                     data=request.POST,
@@ -56,4 +58,5 @@ def verification(request):
         verification_form = ProfileVerificationForm(instance=request.user.profile)
     return render(request,
                   'account/verification.html',
-                  {'verification_form': verification_form})
+                  {'verification_form': verification_form,
+                  'profile_verified': profile_verified})
