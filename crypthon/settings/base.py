@@ -96,6 +96,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Specifying authentication backends
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackend',
+)
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
