@@ -248,5 +248,7 @@ pyvenv.cfg
 [Tt]cl
 pip-selfcheck.json
 
+# Development
+account/static/account/vendors/* 
 
 # End of https://www.gitignore.io/api/venv,python,django,pycharm,virtualenv,pycharm+all

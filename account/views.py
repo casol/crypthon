@@ -6,15 +6,15 @@ from .forms import RegisterForm, ProfileVerificationForm
 
 
 def index(request):
-    """View function for home page of site."""
-    return render(request, 'account/index.html')
+    """View function for home page of the site."""
+    return render(request, 'account/start_page.html')
 
 
 @login_required
 def dashboard(request):
     """View the dashboard for logged users."""
     return render(request,
-                  'account/dashboard.html',
+                  'account/index.html',
                   {'section': 'dashboard'})
 
 

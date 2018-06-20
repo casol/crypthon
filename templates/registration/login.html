@@ -1,42 +1,91 @@
-{% extends "account/index.html" %}
+{% extends "account/base_site.html" %}
 
-{% block title %}Login{% endblock %}
+{% block title %} Login {% endblock title %}
 
-{% block content %}
+{% block stylesheets %}
+  {{ block.super }}
+  <!-- Animate.css -->
+  <link href="/static/account/vendors/animate.css/animate.min.css" rel="stylesheet">
+{% endblock stylesheets %}
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+{% block body_class %}login{% endblock body_class %}
 
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
-<p>Please, use following form to login. If you don't have an account <a href="{% url 'register' %}">register here</a></p>
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
+{% block body %}
+  <div>
+    <a class="hiddenanchor" id="signup"></a>
+    <a class="hiddenanchor" id="signin"></a>
 
-<div>
-  <td>Email or username:</td>
-  <td>{{ form.username }}</td>
-</div>
-<div>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
-</div>
+    <div class="login_wrapper">
+      <div class="animate form login_form">
+        <section class="login_content">
+          <form>
+            <h1>Login Form</h1>
+            <div>
+              <input type="text" class="form-control" placeholder="Username" required="" />
+            </div>
+            <div>
+              <input type="password" class="form-control" placeholder="Password" required="" />
+            </div>
+            <div>
+              <a class="btn btn-default submit" href="index.html">Log in</a>
+              <a class="reset_pass" href="{% url 'password_reset' %}">Lost your password?</a>
+            </div>
 
-<div>
-  <input type="submit" value="login" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</div>
-</form>
+            <div class="clearfix"></div>
 
-<p><a href="{% url 'password_reset' %}">Forgotten your password?</a></p>
+            <div class="separator">
+              <p class="change_link">New to site?
+                <a href="#signup" class="to_register"> Create Account </a>
+              </p>
 
-{% endblock %}
+              <div class="clearfix"></div>
+              <br />
 
+              <div>
+                <h1><i class="fa fa-paw"></i> Crypthon!</h1>
+                <p>©{% now "Y" %} All Rights Reserved. Crypthon. Privacy and Terms</p>
+              </div>
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <div id="register" class="animate form registration_form">
+        <section class="login_content">
+          <form>
+            <h1>Create Account</h1>
+            <div>
+              <input type="text" class="form-control" placeholder="Username" required="" />
+            </div>
+            <div>
+              <input type="email" class="form-control" placeholder="Email" required="" />
+            </div>
+            <div>
+              <input type="password" class="form-control" placeholder="Password" required="" />
+            </div>
+            <div>
+              <a class="btn btn-default submit" href="index.html">Submit</a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="separator">
+              <p class="change_link">Already a member ?
+                <a href="#signin" class="to_register"> Log in </a>
+              </p>
+
+              <div class="clearfix"></div>
+              <br />
+
+              <div>
+                <h1><i class="fa fa-paw"></i> Crypthon!</h1>
+                <p>©{% now "Y" %} All Rights Reserved. Crypthon. Privacy and Terms</p>
+              </div>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+{% endblock body %}
 
