@@ -3,6 +3,11 @@ from django.conf import settings
 
 
 class Profile(models.Model):
+    """Extends default Django User model to store information related to the User.
+
+    The Profile model stores the data required to authenticate the user account.
+    """
+
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
     verified = models.NullBooleanField(blank=True)
