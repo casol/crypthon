@@ -27,7 +27,12 @@ class Wallet(models.Model):
 
 
 class Currency(models.Model):
-    pass
+    name = models.CharField(max_length=50, unique=True)
+    price = models.DecimalField(max_digits=18, decimal_places=2)
+    slug = models.SlugField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 class Address(models.Model):
     """
@@ -44,7 +49,7 @@ class Address(models.Model):
 
     def __str__(self):
         return '{}, {}'.format(self.address, self.currency)
-    
+
 
 class Action(models.Model):
     pass
