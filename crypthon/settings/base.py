@@ -135,3 +135,6 @@ LOGOUT_URL = reverse_lazy('logout')
 
 # EMAIL BACKEND
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# COIN API secret key
+API_KEY = get_env_variable('COINAPI_KEY')
