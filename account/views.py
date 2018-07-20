@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Profile
 from .forms import RegisterForm, ProfileVerificationForm
+from crypthon.settings.base import COINAPI_KEY
+from clientAPI.services import Client
 
 
 def index(request):
@@ -13,9 +15,14 @@ def index(request):
 @login_required
 def dashboard(request):
     """View the dashboard for logged users."""
+    client = Client(COINAPI_KEY)
+    response = client.get_specific_rate(currency_pair='LTC/USD').json()
+    json = response['rate']
+
     return render(request,
                   'account/index.html',
-                  {'section': 'dashboard'})
+                  {'section': 'dashboard',
+                   'json': json})
 
 
 def register(request):
