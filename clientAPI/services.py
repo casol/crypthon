@@ -1,5 +1,6 @@
 import requests
-
+from urllib.parse import urljoin
+from urllib.parse import quote
 
 class Client(object):
     """API Clinet for the CoinAPI.
@@ -18,14 +19,19 @@ class Client(object):
         self.API_KEY = api_key
         self.headers = {'X-CoinAPI-Key': self.API_KEY}
 
+    def build_api_url(self, *args):
+        """Build finale URL endpoint.
+
+        Quote replace special characters in string using the %xx escape and
+        the map function applies to a given function to each item of an iterable
+        and returns a list of the results.
+        """
+        return urljoin(self.API_BASE_URI, '/'.join(map(quote, args)))
 
     def _get(self, *args, **kwargs):
         # https://rest.coinapi.io/v1/exchangerate/BTC/USD
         # API_BASE_URI      +     v1   + exchangerate + dict
-        uri = self.API_BASE_URI
-        url = uri + args[0] + args[1]
-        asset = kwargs.get('data', None)
-        url = 'www.ddd'
+        url = self.build_api_url(args, kwargs) ?
         response = requests.get(url, headers=self.headers)
         return response
 
