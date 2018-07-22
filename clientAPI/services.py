@@ -28,29 +28,24 @@ class Client(object):
         """
         return urljoin(self.API_BASE_URI, '/'.join(map(quote, args)))
 
-    def _get(self, *args, **kwargs):
+    def _get(self, *args):
         # https://rest.coinapi.io/v1/exchangerate/BTC/USD
-        # API_BASE_URI      +     v1   + exchangerate + dict
-        url = self.build_api_url(args, kwargs) ?
+        print(args)
+        url = self.build_api_url(*args)
         response = requests.get(url, headers=self.headers)
         return response
-
-        # self._get('v1', 'exchangerate', currency_pair)
 
     def get_specific_rate(self, **kwargs):
         """Get exchange rate between pair of requested assets at specific or current time.
         https://rest.coinapi.io/v1/exchangerate/BTC/USD'
         """
-        # dictionary.get('Key', default_value') e.g. btc/usd or ltc/euro
         currency_pair = kwargs.get('currency_pair', 'BTC/USD')
-        url = self.API_BASE_URI + 'v1/exchangerate/' + currency_pair
-        # self._get('v1', 'exchangerate', currency_pair)
-        exchange_rate = requests.get(url, headers=self.headers)
+        exchange_rate = self._get('v1', 'exchangerate', currency_pair)
         return exchange_rate
 
-    def get_all_current_rates(self, **kwargs):
-        """Get the current exchange rate between requested asset and all other assets."""
-        currency = kwargs.get('currency', 'BTC')
-        url = self.API_BASE_URI + 'v1/exchangerate/' + currency
-        exchange_rate_all = requests.get(url, headers=self.headers)
-        return exchange_rate_all
+    #def get_all_current_rates(self, **kwargs):
+        #"""Get the current exchange rate between requested asset and all other assets."""
+        #currency = kwargs.get('currency', 'BTC')
+        #url = self.API_BASE_URI + 'v1/exchangerate/' + currency
+        #exchange_rate_all = requests.get(url, headers=self.headers)
+        #return exchange_rate_all
