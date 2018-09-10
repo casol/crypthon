@@ -3,7 +3,7 @@ from urllib.parse import urljoin
 from urllib.parse import quote
 
 class Client(object):
-    """API Clinet for the CoinAPI.
+    """API Client for the CoinAPI.
 
     Entry point for making request to the CoinAPI. Provides methods to receive
     data for common API endpoints.
@@ -25,12 +25,16 @@ class Client(object):
         Quote replace special characters in string using the %xx escape and
         the map function applies to a given function to each item of an iterable
         and returns a list of the results.
+
         """
         return urljoin(self.API_BASE_URI, '/'.join(map(quote, args)))
 
     def _get(self, *args):
-        # https://rest.coinapi.io/v1/exchangerate/BTC/USD
-        print(args)
+        """Build response object.
+
+        Creates a HTTP request, uses the API key to authorized access.
+
+        """
         url = self.build_api_url(*args)
         response = requests.get(url, headers=self.headers)
         return response
@@ -43,9 +47,49 @@ class Client(object):
         exchange_rate = self._get('v1', 'exchangerate', currency_pair)
         return exchange_rate
 
-    #def get_all_current_rates(self, **kwargs):
-        #"""Get the current exchange rate between requested asset and all other assets."""
-        #currency = kwargs.get('currency', 'BTC')
-        #url = self.API_BASE_URI + 'v1/exchangerate/' + currency
-        #exchange_rate_all = requests.get(url, headers=self.headers)
-        #return exchange_rate_all
+    def get_all_current_rates(self, **kwargs):
+        """Get the current exchange rate between requested asset and all other assets."""
+        currency = kwargs.get('currency', 'BTC')
+        exchange_rate_all = self._get('v1', 'exchangerate', currency)
+        return exchange_rate_all
+
+    def list_all_periods(self, **kwargs):
+        pass
+
+    # https://min-api.cryptocompare.com/
+
+class Client_Cryptowatch(object):
+    """API Client for the CryptoCompare.
+
+    Entry point for making request to the CryptoCompare. Provides methods to receive
+    data for current trading info.
+
+    """
+
+    API_BASE_URI = 'https://api.cryptowat.ch/markets/'
+
+    def build_api_url(self, *args):
+        """Build finale URL endpoint.
+
+        Quote replace special characters in string using the %xx escape and
+        the map function applies to a given function to each item of an iterable
+        and returns a list of the results.
+
+        """
+        return urljoin(self.API_BASE_URI, '/'.join(map(quote, args)))
+
+    def _get(self, *args):
+        """Build response object, creates a HTTP request."""
+        url = self.build_api_url(*args)
+        response = requests.get(url)
+        return response
+
+
+    def get_specific_rate_cc(self, **kwargs):
+        """Returns a market's last price as well as other
+        stats based on a 24-hour sliding window.
+
+        """
+        currency = kwargs.get('currency_pair', 'btcusd')
+        exchange_rate = self._get('gdax', currency, 'summary')
+        return exchange_rate

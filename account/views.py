@@ -1,11 +1,17 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.utils import dateparse
 
 from .models import Profile
 from .forms import RegisterForm, ProfileVerificationForm
 from crypthon.settings.base import COINAPI_KEY
-from clientAPI.services import Client
+from clientAPI.services import Client, Client_Cryptowatch
 
+# test
+from urllib.request import urlopen
+import json
+import datetime
+import requests
 
 def index(request):
     """View function for home page of the site."""
@@ -17,12 +23,41 @@ def dashboard(request):
     """View the dashboard for logged users."""
     client = Client(COINAPI_KEY)
     response = client.get_specific_rate(currency_pair='LTC/USD').json()
-    json = response['rate']
+    url = 'https://cdn.rawgit.com/highcharts/highcharts/057b672172ccc6c08fe7dbb27fc17ebca3f5b770/samples/data/new-intraday.json'
+    response_json_test = urlopen(url)
+    data = response_json_test.read().decode("utf-8")
+    response_test= json.loads(data)
 
+    # test
+    client_w = Client_Cryptowatch()
+    xx= client_w.get_specific_rate_cc(currency_pair='ltcusd').json()
+    print(xx)
+
+
+
+    '''# test
+    url = 'https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/history?period_id=1MIN&time_start=2018-09-01T00:00:00'
+    headers = {'X-CoinAPI-Key': '56E16259-89B7-4822-8804-67515F290783'}
+    response_t = requests.get(url, headers=headers)
+    btc_response_t = response_t.json()
+
+    btc=[]
+    for entry in btc_response_t:
+        sublist = []
+        get_time = entry['time_period_start']
+        parse_time = dateparse.parse_datetime(get_time).timestamp()
+        sublist.append(parse_time)
+        sublist.append(entry['price_open'])
+        sublist.append(entry['price_high'])
+        sublist.append(entry['price_low'])
+        sublist.append(entry['price_close'])
+        btc.append(sublist)
+    '''
     return render(request,
                   'account/index.html',
                   {'section': 'dashboard',
-                   'json': json})
+                   'json': json,
+                   'json_test': response_test})
 
 
 def register(request):

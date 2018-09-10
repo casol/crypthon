@@ -47,14 +47,12 @@
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="dashboard_graph">
       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-      <div id="container" style="height: 500px; min-width: 310px"></div>
+      <div id="container" style="height: 400px; min-width: 210px"></div>
 
       <script src="https://code.highcharts.com/stock/highstock.js"></script>
       <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
       <script>
-        $.getJSON('https://cdn.rawgit.com/highcharts/highcharts/057b672172ccc6c08fe7dbb27fc17ebca3f5b770/samples/data/new-intraday.json', function (data) {
 
-              // create the chart
               Highcharts.stockChart('container', {
 
 
@@ -62,34 +60,34 @@
                       text: 'AAPL stock price by minute'
                   },
 
-                  rangeSelector: {
-                      buttons: [{
-                          type: 'hour',
-                          count: 1,
-                          text: '1h'
-                      }, {
-                          type: 'day',
-                          count: 1,
-                          text: '1D'
-                      }, {
-                          type: 'all',
-                          count: 1,
-                          text: 'All'
-                      }],
-                      selected: 1,
-                      inputEnabled: false
+                 rangeSelector: {
+                            buttons: [{
+                                type: 'hour',
+                                count: 1,
+                                text: '1h'
+                            }, {
+                                type: 'day',
+                                count: 1,
+                                text: '1D'
+                            }, {
+                                type: 'all',
+                                count: 1,
+                                text: 'All'
+                            }],
+                            selected: 1,
+                            inputEnabled: false
                   },
 
                   series: [{
                       name: 'AAPL',
                       type: 'candlestick',
-                      data: data,
+                      data: {{ json_test }},
                       tooltip: {
                           valueDecimals: 2
                       }
                   }]
               });
-          });
+
       </script>
 
 
@@ -242,6 +240,7 @@
             <td>
               <table class="tile_info">
                 {{ json }}
+                {{ value|date }}
               </table>
             </td>
           </tr>
