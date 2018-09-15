@@ -5,8 +5,7 @@ from django.utils import dateparse
 from .models import Profile
 from .forms import RegisterForm, ProfileVerificationForm
 from crypthon.settings.base import COINAPI_KEY
-from clientAPI.services import Client, Client_Cryptowatch
-
+from clientAPI.services import Client, Client_CryptoCompare
 # test
 from urllib.request import urlopen
 import json
@@ -29,34 +28,14 @@ def dashboard(request):
     response_test= json.loads(data)
 
     # test
-    client_w = Client_Cryptowatch()
-    xx= client_w.get_specific_rate_cc(currency_pair='ltcusd').json()
-    print(xx)
+    client_w = Client_CryptoCompare()
+    xx= client_w.get_specific_rate_full_data(cryptocurrencies='BTC', currencies='USD' ).json()
 
 
-
-    '''# test
-    url = 'https://rest.coinapi.io/v1/ohlcv/BITSTAMP_SPOT_BTC_USD/history?period_id=1MIN&time_start=2018-09-01T00:00:00'
-    headers = {'X-CoinAPI-Key': '56E16259-89B7-4822-8804-67515F290783'}
-    response_t = requests.get(url, headers=headers)
-    btc_response_t = response_t.json()
-
-    btc=[]
-    for entry in btc_response_t:
-        sublist = []
-        get_time = entry['time_period_start']
-        parse_time = dateparse.parse_datetime(get_time).timestamp()
-        sublist.append(parse_time)
-        sublist.append(entry['price_open'])
-        sublist.append(entry['price_high'])
-        sublist.append(entry['price_low'])
-        sublist.append(entry['price_close'])
-        btc.append(sublist)
-    '''
     return render(request,
                   'account/index.html',
                   {'section': 'dashboard',
-                   'json': json,
+                   'json': xx['DISPLAY']['BTC']['USD']['PRICE'],
                    'json_test': response_test})
 
 

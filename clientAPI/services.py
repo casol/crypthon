@@ -58,7 +58,7 @@ class Client(object):
 
     # https://min-api.cryptocompare.com/
 
-class Client_Cryptowatch(object):
+class Client_CryptoCompare(object):
     """API Client for the CryptoCompare.
 
     Entry point for making request to the CryptoCompare. Provides methods to receive
@@ -66,17 +66,12 @@ class Client_Cryptowatch(object):
 
     """
 
-    API_BASE_URI = 'https://api.cryptowat.ch/markets/'
+    API_BASE_URI = 'https://min-api.cryptocompare.com/data/'
 
     def build_api_url(self, *args):
-        """Build finale URL endpoint.
-
-        Quote replace special characters in string using the %xx escape and
-        the map function applies to a given function to each item of an iterable
-        and returns a list of the results.
-
-        """
-        return urljoin(self.API_BASE_URI, '/'.join(map(quote, args)))
+        """Build finale URL endpoint."""
+        join_path = ''.join(args)
+        return urljoin(self.API_BASE_URI, join_path)
 
     def _get(self, *args):
         """Build response object, creates a HTTP request."""
@@ -85,11 +80,11 @@ class Client_Cryptowatch(object):
         return response
 
 
-    def get_specific_rate_cc(self, **kwargs):
+    def get_specific_rate_full_data(self, cryptocurrencies, currencies):
         """Returns a market's last price as well as other
         stats based on a 24-hour sliding window.
 
         """
-        currency = kwargs.get('currency_pair', 'btcusd')
-        exchange_rate = self._get('gdax', currency, 'summary')
+        # Comma separated cryptocurrency symbols list
+        exchange_rate = self._get('pricemultifull?fsyms=', cryptocurrencies, '&tsyms=', currencies)
         return exchange_rate
