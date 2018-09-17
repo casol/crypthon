@@ -37,29 +37,47 @@ class Crypto_Currency(models.Model):
     crypto_currency = models.CharField(blank=True, null=False,
                                        choices=CRYPTO_CURRENCY_CHOICES)
     price = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    #logo ?
+    last_update = models.DateTimeField(auto_now=True)
+    # logo
 
     class Meta:
+        ordering = ['-last_update']
         verbose_name = 'cryptocurrency'
         verbose_name_plural = 'cryptocurrencies'
+
 
     def __str__(self):
         return self.crypto_currency
 
 
 class Fiat_Currency(models.Model):
-    pass
+    """Fiat currency available for trending."""
 
+    DOLLAR = 'USD'
+    EURO = 'EUR'
+    FIAT_CURRENCY_CHOICES = (
+        (DOLLAR, 'Dollar'),
+        (EURO, 'Euro'),
+    )
+    crypto_currency = models.ForeignKey(Crypto_Currency, on_delete=models.CASCADE)
+    currency = models.CharField(blank=True, null=False,
+                                choices=FIAT_CURRENCY_CHOICES)
+    class Meta:
+        verbose_name = 'fiat currency'
+        verbose_name_plural = 'fiat currencies'
+
+    def __str__(self):
+        return self.currency
 
 
 class Currency_Trending_Info(models.Model):
     """Stores a market's last price as well as other stats based on a 24-hour sliding window."""
 
-    currency = models.ForeignKey(Crypto_Currency, on_delete=models.CASCADE)
+    crypto_currency = models.ForeignKey(Crypto_Currency, on_delete=models.CASCADE)
     market = models.CharField(max_length=30, blank=True, null=False)
     #from_currency = mode
-    price = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    last_update = models.DateTimeField(auto_now=True)
+    #price = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
+    #last_update = models.DateTimeField(auto_now=True)
     last_volume = models.DecimalField()
     last_volume_to = models.DecimalField()
     last_trade_id = models.BigIntegerField()
@@ -76,8 +94,8 @@ class Currency_Trending_Info(models.Model):
     supply = models.IntegerField()
     market_cap = models.DecimalField(null=True, blank=True)
 
-    class Meta:
-        ordering = ['-last_update']
+    #class Meta:
+        #ordering = ['-last_update']
 
     def __str__(self):
-        return 'Current {}'.format(self.price)
+        return 'Open: {}, High: {}, Low: {}'.format(self.open_day, self.high_day, self.low_day)
