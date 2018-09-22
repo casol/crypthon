@@ -138,3 +138,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # COIN API secret key
 COINAPI_KEY = get_env_variable('COINAPI_KEY')
+
+# CELERY BROKER URL
+CELERY_BROKER_URL = 'amqp://localhost'
