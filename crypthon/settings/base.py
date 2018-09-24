@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 from django.urls import reverse_lazy
 
+from celery.schedules import crontab
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -141,3 +143,11 @@ COINAPI_KEY = get_env_variable('COINAPI_KEY')
 
 # CELERY BROKER URL
 CELERY_BROKER_URL = 'amqp://localhost'
+
+CELERY_BEAT_SCHEDULE = {
+    'send-btc-request-every-30-seconds': {
+        'task': 'clientAPI.tasks.send_api_request',
+        'schedule': 30.0,
+    }
+
+}

@@ -34,7 +34,7 @@ class Crypto_Currency(models.Model):
         (RIPPLE, 'RIPPLE'),
     )
 
-    crypto_currency = models.CharField(blank=True, null=False,
+    crypto_currency = models.CharField(max_length=50, blank=True, null=False,
                                        choices=CRYPTO_CURRENCY_CHOICES)
     price = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
     last_update = models.DateTimeField(auto_now=True)
@@ -60,7 +60,7 @@ class Fiat_Currency(models.Model):
         (EURO, 'Euro'),
     )
     crypto_currency = models.ForeignKey(Crypto_Currency, on_delete=models.CASCADE)
-    currency = models.CharField(blank=True, null=False,
+    currency = models.CharField(max_length=50, blank=True, null=False,
                                 choices=FIAT_CURRENCY_CHOICES)
     class Meta:
         verbose_name = 'fiat currency'
@@ -78,8 +78,8 @@ class Currency_Trending_Info(models.Model):
     #from_currency = mode
     #price = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
     #last_update = models.DateTimeField(auto_now=True)
-    last_volume = models.DecimalField()
-    last_volume_to = models.DecimalField()
+    last_volume = models.DecimalField(max_digits=18, decimal_places=9)
+    last_volume_to = models.DecimalField(max_digits=18, decimal_places=9)
     last_trade_id = models.BigIntegerField()
     open_day = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
     high_day = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
@@ -87,12 +87,12 @@ class Currency_Trending_Info(models.Model):
     open_24_hours = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
     high_24_hours = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
     low_24_hours = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    change_24_hours = models.DecimalField(max_digits=18,null=True, blank=True)
+    change_24_hours = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
     change_percent_24_hours = models.IntegerField()
-    change_day = models.DecimalField(null=True, blank=True)
-    change_percent_day = models.DecimalField(null=True, blank=True)
+    change_day = models.DecimalField(max_digits=18, null=True, blank=True, decimal_places=9)
+    change_percent_day = models.DecimalField(max_digits=18, null=True, blank=True, decimal_places=9)
     supply = models.IntegerField()
-    market_cap = models.DecimalField(null=True, blank=True)
+    market_cap = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
 
     #class Meta:
         #ordering = ['-last_update']

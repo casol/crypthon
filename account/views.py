@@ -6,6 +6,7 @@ from .models import Profile
 from .forms import RegisterForm, ProfileVerificationForm
 from crypthon.settings.base import COINAPI_KEY
 from clientAPI.services import Client, Client_CryptoCompare
+from clientAPI.tasks import send_api_request
 # test
 from urllib.request import urlopen
 import json
@@ -30,7 +31,6 @@ def dashboard(request):
     # test
     client_w = Client_CryptoCompare()
     xx= client_w.get_specific_rate_full_data(cryptocurrencies='BTC', currencies='USD' ).json()
-
 
     return render(request,
                   'account/index.html',
