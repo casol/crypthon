@@ -24,6 +24,8 @@ class Wallet(models.Model):
         verbose_name = 'Wallet'
         verbose_name_plural = 'Wallets'
 
+    def __str__(self):
+        return '{}, {}'.format(self.user, self.currency)
 
 
 class Currency(models.Model):

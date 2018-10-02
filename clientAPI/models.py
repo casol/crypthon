@@ -37,8 +37,8 @@ class Crypto_Currency(models.Model):
     crypto_currency = models.CharField(max_length=50, blank=True, null=False,
                                        choices=CRYPTO_CURRENCY_CHOICES)
     price = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    last_update = models.DateTimeField(auto_now=True)
-    # logo
+    last_update = models.DateTimeField(auto_now_add=True)
+    unix_timestamp = models.IntegerField()
 
     class Meta:
         ordering = ['-last_update']
