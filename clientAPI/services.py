@@ -86,5 +86,6 @@ class Client_CryptoCompare(object):
 
         """
         # Comma separated cryptocurrency symbols list
-        exchange_rate = self._get('pricemultifull?fsyms=', cryptocurrencies, '&tsyms=', currencies)
+        exchange_rate = self._get('pricemultifull?fsyms=', cryptocurrencies,
+                                  '&tsyms=', currencies)
         return exchange_rate
