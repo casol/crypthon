@@ -75,24 +75,21 @@ class Currency_Trending_Info(models.Model):
 
     crypto_currency = models.ForeignKey(Crypto_Currency, on_delete=models.CASCADE)
     market = models.CharField(max_length=30, blank=True, null=False)
-    #from_currency = mode
-    #price = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    #last_update = models.DateTimeField(auto_now=True)
     last_volume = models.DecimalField(max_digits=18, decimal_places=9)
     last_volume_to = models.DecimalField(max_digits=18, decimal_places=9)
     last_trade_id = models.BigIntegerField()
     open_day = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
     high_day = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
     low_day = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    open_24_hours = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    high_24_hours = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    low_24_hours = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    change_24_hours = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    change_percent_24_hours = models.IntegerField()
+    open_24_hour = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
+    high_24_hour = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
+    low_24_hour = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
+    change_24_hour = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
+    change_pct_24_hour = models.IntegerField()
     change_day = models.DecimalField(max_digits=18, null=True, blank=True, decimal_places=9)
-    change_percent_day = models.DecimalField(max_digits=18, null=True, blank=True, decimal_places=9)
+    change_pct_day = models.DecimalField(max_digits=18, null=True, blank=True, decimal_places=9)
     supply = models.IntegerField()
-    market_cap = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
+    mkt_cap = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
 
     #class Meta:
         #ordering = ['-last_update']
