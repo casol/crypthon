@@ -38,7 +38,7 @@ class Crypto_Currency(models.Model):
                                        choices=CRYPTO_CURRENCY_CHOICES)
     price = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
     last_update = models.DateTimeField(auto_now_add=True)
-    unix_timestamp = models.IntegerField()
+    unix_timestamp = models.IntegerField(null=True, blank=True)
 
     class Meta:
         ordering = ['-last_update']
@@ -75,24 +75,24 @@ class Currency_Trending_Info(models.Model):
 
     crypto_currency = models.ForeignKey(Crypto_Currency, on_delete=models.CASCADE)
     market = models.CharField(max_length=30, blank=True, null=False)
-    last_volume = models.DecimalField(max_digits=18, decimal_places=9)
-    last_volume_to = models.DecimalField(max_digits=18, decimal_places=9)
-    last_trade_id = models.BigIntegerField()
-    open_day = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    high_day = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    low_day = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    open_24_hour = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    high_24_hour = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    low_24_hour = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    change_24_hour = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
-    change_pct_24_hour = models.IntegerField()
-    change_day = models.DecimalField(max_digits=18, null=True, blank=True, decimal_places=9)
-    change_pct_day = models.DecimalField(max_digits=18, null=True, blank=True, decimal_places=9)
+    lastvolume = models.DecimalField(max_digits=18, decimal_places=9, null=True)
+    lastvolumeto = models.DecimalField(max_digits=18, decimal_places=9, null=True)
+    lasttradeid = models.BigIntegerField(null=True)
+    openday = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
+    highday = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
+    lowday = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
+    open24hour = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
+    high24hour = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
+    low24hour = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
+    change24hour = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
+    changepct24hour = models.DecimalField(max_digits=10, decimal_places=4, null=True, blank=True)
+    changeday = models.DecimalField(max_digits=18, null=True, blank=True, decimal_places=9)
+    changepctday = models.DecimalField(max_digits=18, null=True, blank=True, decimal_places=9)
     supply = models.IntegerField()
-    mkt_cap = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
+    mktcap = models.BigIntegerField(null=True, blank=True)
 
     #class Meta:
         #ordering = ['-last_update']
 
     def __str__(self):
-        return 'Open: {}, High: {}, Low: {}'.format(self.open_day, self.high_day, self.low_day)
+        return 'Open: {}, High: {}, Low: {}'.format(self.openday, self.highday, self.lowday)
