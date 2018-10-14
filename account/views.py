@@ -5,7 +5,7 @@ from django.utils import dateparse
 from .models import Profile
 from .forms import RegisterForm, ProfileVerificationForm
 from crypthon.settings.base import COINAPI_KEY
-from clientAPI.services import Client, Client_CryptoCompare
+from clientAPI.services import Client, ClientCryptoCompare
 from clientAPI.tasks import send_api_request
 # test
 from urllib.request import urlopen
@@ -29,7 +29,7 @@ def dashboard(request):
     response_test= json.loads(data)
 
     # test
-    client_w = Client_CryptoCompare()
+    client_w = ClientCryptoCompare()
     xx= client_w.get_specific_rate_full_data(cryptocurrencies='BTC', currencies='USD' ).json()
 
     return render(request,

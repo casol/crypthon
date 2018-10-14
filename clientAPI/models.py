@@ -20,7 +20,7 @@ class OHLCV_Currency_Data(models.Model):
 """
 
 
-class Crypto_Currency(models.Model):
+class CryptoCurrency(models.Model):
     """Returns a market's last price."""
 
     BITCOIN = 'BTC'
@@ -50,7 +50,7 @@ class Crypto_Currency(models.Model):
         return self.crypto_currency
 
 
-class Fiat_Currency(models.Model):
+class FiatCurrency(models.Model):
     """Fiat currency available for trending."""
 
     DOLLAR = 'USD'
@@ -59,7 +59,7 @@ class Fiat_Currency(models.Model):
         (DOLLAR, 'Dollar'),
         (EURO, 'Euro'),
     )
-    crypto_currency = models.ForeignKey(Crypto_Currency, on_delete=models.CASCADE)
+    crypto_currency = models.ForeignKey(CryptoCurrency, on_delete=models.CASCADE)
     currency = models.CharField(max_length=50, blank=True, null=False,
                                 choices=FIAT_CURRENCY_CHOICES)
     class Meta:
@@ -70,10 +70,10 @@ class Fiat_Currency(models.Model):
         return self.currency
 
 
-class Currency_Trending_Info(models.Model):
+class CurrencyTrendingInfo(models.Model):
     """Stores a market's last price as well as other stats based on a 24-hour sliding window."""
 
-    crypto_currency = models.ForeignKey(Crypto_Currency, on_delete=models.CASCADE)
+    crypto_currency = models.ForeignKey(CryptoCurrency, on_delete=models.CASCADE)
     market = models.CharField(max_length=30, blank=True, null=False)
     lastvolume = models.DecimalField(max_digits=18, decimal_places=9, null=True)
     lastvolumeto = models.DecimalField(max_digits=18, decimal_places=9, null=True)
