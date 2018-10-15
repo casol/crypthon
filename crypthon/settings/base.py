@@ -145,8 +145,12 @@ COINAPI_KEY = get_env_variable('COINAPI_KEY')
 CELERY_BROKER_URL = 'amqp://localhost'
 
 CELERY_BEAT_SCHEDULE = {
-    'send-btc-request-every-30-seconds': {
-        'task': 'clientAPI.tasks.send_api_request',
+    'send-usd-request-every-30-seconds': {
+        'task': 'clientAPI.tasks.send_api_request_usd',
+        'schedule': 30.0,
+    },
+    'send-eur-request-every-30-seconds':{
+        'task': 'clientAPI.tasks.send_api_request_eur',
         'schedule': 30.0,
     }
 

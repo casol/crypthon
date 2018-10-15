@@ -5,9 +5,23 @@ from .services import ClientCryptoCompare, Client
 from .services import ResponseDeserializer
 
 @shared_task
-def send_api_request():
+def send_api_request_usd():
+    """Get the latest data from an API."""
+    callsave = ResponseDeserializer()
+    callsave.new_entry('BTC', 'USD')
+    callsave.new_entry('ETH', 'USD')
+    callsave.new_entry('LTC', 'USD')
+    callsave.new_entry('XRP', 'USD')
 
-    client_w = ClientCryptoCompare()
-    xx = client_w.get_specific_rate_full_data(cryptocurrencies='BTC', currencies='USD').json()
 
-    return  xx['RAW']['BTC']['USD']['PRICE']
+
+@shared_task
+def send_api_request_eur():
+    """Get the latest data from an API."""
+    callsave = ResponseDeserializer()
+    callsave.new_entry('BTC', 'EUR')
+    callsave.new_entry('ETH', 'EUR')
+    callsave.new_entry('LTC', 'EUR')
+    callsave.new_entry('XRP', 'EUR')
+
+
