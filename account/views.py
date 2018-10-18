@@ -6,7 +6,7 @@ from .models import Profile
 from .forms import RegisterForm, ProfileVerificationForm
 from crypthon.settings.base import COINAPI_KEY
 from clientAPI.services import Client, ClientCryptoCompare
-from clientAPI.tasks import send_api_request
+from clientAPI.tasks import send_api_request_usd
 # test
 from urllib.request import urlopen
 import json

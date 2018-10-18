@@ -15,12 +15,13 @@ class CurrencyTrendingInfoInline(admin.StackedInline):
 
 
 @admin.register(CryptoCurrency)
-class Crypt_Currency_admin(admin.ModelAdmin):
+class CryptCurrencyAdmin(admin.ModelAdmin):
     """Configuration for Django's admin on the Crypto Currency model."""
     inlines = [
         FiatCurrencyInline,
         CurrencyTrendingInfoInline,
     ]
+    readonly_fields = ('last_update',)
 
 #admin.site.register(CryptoCurrency, Crypt_Currency_admin)
 

@@ -77,7 +77,7 @@ class CurrencyTrendingInfo(models.Model):
     market = models.CharField(max_length=30, blank=True, null=False)
     lastvolume = models.DecimalField(max_digits=18, decimal_places=9, null=True)
     lastvolumeto = models.DecimalField(max_digits=18, decimal_places=9, null=True)
-    lasttradeid = models.BigIntegerField(null=True)
+    lasttradeid = models.CharField(max_length=30 ,blank=True, null=False)
     openday = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
     highday = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)
     lowday = models.DecimalField(max_digits=18, decimal_places=9, null=True, blank=True)

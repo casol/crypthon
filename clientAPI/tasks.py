@@ -18,10 +18,10 @@ def send_api_request_usd():
 @shared_task
 def send_api_request_eur():
     """Get the latest data from an API."""
-    callsave = ResponseDeserializer()
-    callsave.new_entry('BTC', 'EUR')
-    callsave.new_entry('ETH', 'EUR')
-    callsave.new_entry('LTC', 'EUR')
-    callsave.new_entry('XRP', 'EUR')
+    callsave_euro = ResponseDeserializer()
+    callsave_euro.new_entry('BTC', 'EUR')
+    callsave_euro.new_entry('ETH', 'EUR')
+    callsave_euro.new_entry('LTC', 'EUR')
+    callsave_euro.new_entry('XRP', 'EUR')
 
 

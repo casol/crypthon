@@ -144,8 +144,12 @@ class ResponseDeserializer(object):
                                                            currencies=fiat).json()
         response_dic = response['RAW'][crypto][fiat]
         price = response_dic.get('PRICE')
-        unix_timestamp = int(response_dic.get('LASTUPDATE'))
-        if not isinstance(unix_timestamp, int):
-            unix_timestamp = round(unix_timestamp)
+        unix_timestamp = round(response_dic.get('LASTUPDATE'))
+
+        #unix_timestamp = int(float(response_dic.get('LASTUPDATE')))
+        #if not isinstance(unix_timestamp, int):
+            #unix_timestamp = round(unix_timestamp)
+
         data_dic = self.adjust_to_the_model(*self.model_fields, **response_dic)
+        print(unix_timestamp, '\n', data_dic)
         self.save_to_database(crypto, fiat, price, unix_timestamp, **data_dic)
