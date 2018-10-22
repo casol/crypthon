@@ -147,11 +147,11 @@ CELERY_BROKER_URL = 'amqp://localhost'
 CELERY_BEAT_SCHEDULE = {
     'send-usd-request-every-10-seconds': {
         'task': 'clientAPI.tasks.send_api_request_usd',
-        'schedule': 20.0,
+        'schedule': 30.0,
     },
-    #'send-eur-request-every-30-seconds':{
-    #    'task': 'clientAPI.tasks.send_api_request_eur',
-    #    'schedule': 30.0,
-    #}
+    'send-eur-request-every-30-seconds':{
+        'task': 'clientAPI.tasks.send_api_request_eur',
+        'schedule': 35.0,
+    }
 
 }
