@@ -7,11 +7,7 @@ from .forms import RegisterForm, ProfileVerificationForm
 from crypthon.settings.base import COINAPI_KEY
 from clientAPI.services import Client, ClientCryptoCompare
 from clientAPI.tasks import send_api_request_usd
-# test
-from urllib.request import urlopen
-import json
-import datetime
-import requests
+from clientAPI.models import CryptoCurrency, CurrencyTrendingInfo, FiatCurrency
 
 def index(request):
     """View function for home page of the site."""
@@ -21,22 +17,21 @@ def index(request):
 @login_required
 def dashboard(request):
     """View the dashboard for logged users."""
-    client = Client(COINAPI_KEY)
-    response = client.get_specific_rate(currency_pair='LTC/USD').json()
-    url = 'https://cdn.rawgit.com/highcharts/highcharts/057b672172ccc6c08fe7dbb27fc17ebca3f5b770/samples/data/new-intraday.json'
-    response_json_test = urlopen(url)
-    data = response_json_test.read().decode("utf-8")
-    response_test= json.loads(data)
 
-    # test
-    client_w = ClientCryptoCompare()
-    xx= client_w.get_specific_rate_full_data(cryptocurrencies='BTC', currencies='USD' ).json()
+    latest = CryptoCurrency.objects.latest('last_update')
+    #latest = CryptoCurrency.objects.filter(fiatcurrency__currency='USD').last()
+
+    #######
+    fiat = FiatCurrency.objects.get(crypto_currency=latest).currency
+    price = latest.price
+    changepctday = CurrencyTrendingInfo.objects.get(crypto_currency=latest).changepctday
 
     return render(request,
                   'account/index.html',
                   {'section': 'dashboard',
-                   'json': xx['DISPLAY']['BTC']['USD']['PRICE'],
-                   'json_test': response_test})
+                   'price': price,
+                   'changepctday': changepctday,
+                   })
 
 
 def register(request):

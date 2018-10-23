@@ -18,16 +18,17 @@ class CurrencyTrendingInfoInline(admin.StackedInline):
 @admin.register(CryptoCurrency)
 class CryptCurrencyAdmin(admin.ModelAdmin):
     """Configuration for Django's admin on the Crypto Currency model."""
-    list_display = ('crypto_currency', 'price', 'last_update', 'unix_timestamp', 'fiatcurrency__currency')
+    list_display = ('crypto_currency', 'price', 'fiatcurrency',
+                    'last_update',)
     inlines = [
         FiatCurrencyInline,
         CurrencyTrendingInfoInline,
     ]
     readonly_fields = ('last_update',)
-    list_filter = ('crypto_currency', 'last_update')
+    list_filter = ('crypto_currency', 'last_update',)
 
-    def fiatcurrency__currency(self, object):
-        return object.fiatcurrency.currency
+    def fiatcurrency(self, obj):
+        return FiatCurrency.objects.get(crypto_currency=obj)
 
 
 #admin.site.register(CryptoCurrency, Crypt_Currency_admin)
