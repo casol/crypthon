@@ -24,13 +24,25 @@ def dashboard(request):
     #######
     fiat = FiatCurrency.objects.get(crypto_currency=latest).currency
     price = latest.price
+    trending_info = CurrencyTrendingInfo.objects.get(crypto_currency=latest)
+    trending_info_dic = {
+        'low24hour': trending_info.low24hour,
+        'high24hour': trending_info.high24hour,
+        'change24hour': trending_info.change24hour,
+        'changepctday': trending_info.changepctday,
+        'lastvolume': trending_info.lastvolume}
+    # TODO iterate over a dict
     changepctday = CurrencyTrendingInfo.objects.get(crypto_currency=latest).changepctday
-
+    high24hour = CurrencyTrendingInfo.objects.get(crypto_currency=latest).high24hour
+    low24hour = CurrencyTrendingInfo.objects.get(crypto_currency=latest).low24hour
+    change24hour = CurrencyTrendingInfo.objects.get(crypto_currency=latest).change24hour
+    lastvolume = CurrencyTrendingInfo.objects.get(crypto_currency=latest).lastvolume
     return render(request,
                   'account/index.html',
                   {'section': 'dashboard',
                    'price': price,
-                   'changepctday': changepctday,
+                   'fiat': fiat,
+                   'trending_info_dic': trending_info_dic
                    })
 
 
